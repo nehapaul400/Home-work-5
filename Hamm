@@ -1,0 +1,5 @@
+def hamming_distance(s, t):
+    value = 0
+    for a, b in zip(s, t):
+        if a != b: value += 1
+    return value
