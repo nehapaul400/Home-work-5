@@ -1,0 +1,13 @@
+data = open("./Data/rosalind8.txt", "r").read()
+
+k = 3
+
+lst = [[rec for rec in row.split("\n",1) if rec] for row in data.split(">")[1:] if row]
+
+for i in lst:
+    i[1].replace('\n','')
+    i[1] = i[1].strip()
+    for j in lst:
+        if i != j:
+            if i[1][-3:] == j[1][:3]:
+                print i[0] + ' ' + j[0]
