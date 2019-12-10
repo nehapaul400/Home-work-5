@@ -1,0 +1,23 @@
+from RNA import rna_transcription
+from REVC import reverse_complement
+from PROT import translate
+
+def orf(seq):
+    proteins = []
+    seqc = reverse_complement(seq)
+    frames = [ seq, seq[1:], seq[2:], seqc, seqc[1:], seqc[2:] ]
+    for frame in frames: # For each frame.
+        aa = translate(rna_transcription(frame))
+        start = aa.find('M')
+        if start != -1:
+            end = aa.find('*', start + 1)
+        while start != -1 and end != -1:
+            proteins.append(aa[start:end])
+            start = aa.find('M', start + 1)
+            if start != -1:
+                end = aa.find('*', start + 1)
+    return list(set(proteins))
+
+if __name__ == '__main__':
+    with open('ORF.dataset', encoding='utf-8') as dataset:
+        print(*orf(dataset.readline().rstrip()), sep='\n')
