@@ -1,0 +1,13 @@
+from re import sub
+from RNA import rna_transcription
+from PROT import translate
+
+def splicing(dna, introns):
+    pattern = '|'.join([ '(' + intron + ')' for intron in introns ])
+    return translate(rna_transcription(sub(pattern, '', dna)))
+
+if __name__ == '__main__':
+    with open('SPLC.dataset', encoding='utf-8') as dataset:
+        dna = dataset.readline().rstrip()
+        introns = [ intron.rstrip() for intron in dataset.readlines() ]
+    print(splicing(dna, introns))
