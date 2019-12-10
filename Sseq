@@ -1,0 +1,12 @@
+f = open('rosalind25.txt').readlines()
+s = list(f[0].strip())
+t = list(f[1].strip())
+result = []
+start_from = 0
+for i in t:
+    for j in xrange(start_from, len(s)):
+        if s[j] == i:
+            result.append(j + 1)
+            start_from = j + 1
+            break
+print ' '.join(str(x) for x in result)
