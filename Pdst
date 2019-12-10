@@ -1,0 +1,10 @@
+from fasta import fasta_list
+
+def distance_matrix(dna_lst):
+    total = float(len(dna_lst[0]))
+    rows = [[sum([b[i]!=b[j] for b in zip(*dna_lst)])/total for j in range(0,len(dna_lst))] for i in range(0,len(dna_lst))]
+    return rows
+
+result=distance_matrix(fasta_list('rosalind_pdst.txt'))
+
+print '\n'.join(' '.join('%.5f' % val for val in row) for row in result)
