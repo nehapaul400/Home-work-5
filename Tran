@@ -1,0 +1,4 @@
+def transitionTransversionRatio(s1, s2):
+    trans = {"A":"G", "G":"A", "T":"C", "C":"T"}
+    mut = [0 if trans[b1] == b2 else 1 for b1, b2 in zip(s1,s2) if b1 is not b2]
+    return mut.count(0) / float(mut.count(1))
