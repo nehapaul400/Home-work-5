@@ -1,0 +1,7 @@
+S, T = open('rosalind_lcsq.txt').read().splitlines()
+cur = [''] * (len(T) + 1) #dummy entries as per wiki
+for s in S:
+    last, cur = cur, [''] 
+    for i, t in enumerate(T):
+        cur.append(last[i] + s if s==t else max(last[i+1], cur[-1], key=len))
+print cur[-1]
