@@ -1,10 +1,10 @@
-s = """10
-1 2
-2 8
-4 10
-5 9
-6 10
-7 9
-""".splitlines()
-
-print int(s[0]) - len(s[1:]) - 1
+f = open(r'rosalind_tree.txt', 'r')
+str1 = ' '
+mat = []
+while (str1 != ''):
+    str1 = f.readline().strip()
+    mat.append(str1)
+mat.remove('')
+n = int(mat[0])
+edge = n - len(mat)
+print(edge)
