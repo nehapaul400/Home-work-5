@@ -1,10 +1,39 @@
-from fasta import fasta_list
-
-def distance_matrix(dna_lst):
-    total = float(len(dna_lst[0]))
-    rows = [[sum([b[i]!=b[j] for b in zip(*dna_lst)])/total for j in range(0,len(dna_lst))] for i in range(0,len(dna_lst))]
-    return rows
-
-result=distance_matrix(fasta_list('rosalind_pdst.txt'))
-
-print '\n'.join(' '.join('%.5f' % val for val in row) for row in result)
+import itertools
+import math
+def pdst(x):
+    geneDict = {}
+    geneName = 'x'
+    fastaSeq = ''
+    for line in x:
+        if line[0] == '>':
+            geneDict.update({geneName: fastaSeq})
+            geneName = line[1:]
+            fastaSeq = ''
+        else:
+            fastaSeq += line
+    geneDict.update({geneName: fastaSeq})
+    geneDict.pop('x')
+    DNA = list(geneDict.values())
+    length = len(DNA[0])
+    perms = list(itertools.product(DNA,repeat=2))
+    lst = []
+    for i in perms:
+        M = i[0]
+        N = i[1]
+        count = 0
+        for j in range(length):
+            if M[j]!=N[j]:
+                count+=1
+        lst.append(count)
+    lst2 = []
+    for j in lst:
+        lst2.append(j/length)
+    y = []
+    for i in lst2:
+        y.append('{0:.5f}'.format(i))
+    premet = [y[i:i+int(math.sqrt(len(y)))] for i in range(0, len(y), int(math.sqrt(len(y))))]
+    for i in premet:
+        print(*i)
+    return('')
+x = list(map(str, input().split()))
+print(pdst(x))
